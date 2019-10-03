@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -9,14 +8,14 @@ public class T {
 
     private String name;
     private GENDER gender;
-
-    static Map<T, List<T>> children = new HashMap<>();
+    
     static Map<T, List<T>> parents = new HashMap<>();
+    static Map<T, List<T>> children = new HashMap<>();
     static T rickard = new T("Rickard Stark", GENDER.MALE);
     static T lyarra = new T("Lyarra Stark", GENDER.FEMALE);
 
     static T catelyn = new T("Catelyn Stark", GENDER.FEMALE); // Ausnahme!
-    static T eddard = new T("Rickard Stark", GENDER.MALE);
+    static T eddard = new T("Eddard Stark", GENDER.MALE);
     static T brandon = new T("Brandon Stark", GENDER.MALE);
     static T benjen = new T("Benjen Stark", GENDER.MALE);
     static T lyanna = new T("Lyanna Stark", GENDER.FEMALE);
@@ -35,24 +34,8 @@ public class T {
         this.name = name;
         this.gender = gender;
     }
-
-    public static void setup() {
-        // Personen
-        rickard = new T("Rickard Stark", GENDER.MALE);
-        lyarra = new T("Lyarra Stark", GENDER.FEMALE);
-
-        catelyn = new T("Catelyn Stark", GENDER.FEMALE); // Ausnahme!
-        eddard = new T("Richard Stark", GENDER.MALE);
-        brandon = new T("Brandon Stark", GENDER.MALE);
-        benjen = new T("Benjen Stark", GENDER.MALE);
-        lyanna = new T("Lyanna Stark", GENDER.FEMALE);
-
-        robb = new T("Robb Stark", GENDER.MALE);
-        sansa = new T("Sansa Stark", GENDER.FEMALE);
-        arya = new T("Arya Stark", GENDER.FEMALE);
-        bran = new T("Bran Stark", GENDER.MALE);
-        rickon = new T("Rickon Stark", GENDER.MALE);
-
+        
+    public static void setup() {       
         // Eltern der Personen mittlerer Reihe       
         parents.put(eddard, new ArrayList<>(Arrays.asList(rickard, lyarra)));
         parents.put(brandon, Arrays.asList(rickard, lyarra));
@@ -74,7 +57,7 @@ public class T {
         children.put(catelyn, Arrays.asList(robb, sansa, arya, bran, rickon));
         children.put(eddard, Arrays.asList(robb, sansa, arya, bran, rickon));
     }
-
+    
     public static boolean isParent(T parent, T child) {
         if (children.get(parent) != null) {
             for (T c : children.get(parent)) {
@@ -144,7 +127,7 @@ public class T {
         List<T> siblings = new ArrayList<>();
         Map<T, List<T>> combined = new HashMap<>();
 
-        if (children.get(parents.get(root)) != null) {
+        if (parents.get(root) != null) {
             for (T sibling : children.get(parents.get(root).get(0))) {
                 // root wird nicht als Geschwister von root angezeigt
                 if (!sibling.equals(root)) {
